@@ -1,0 +1,256 @@
+[
+  {
+    "id": "a-bank-balance-en",
+    "message": "how many banked hours do I have?",
+    "bucket": "a_where_i_stand",
+    "facts": {
+      "bank_balance": "14h 30m",
+      "bank_cycle": "monthly",
+      "bank_reset_date": "31 Jul 2026",
+      "manager_name": "Marcos"
+    },
+    "expected_substrings": ["14h 30m"]
+  },
+  {
+    "id": "a-bank-reset-en",
+    "message": "when do my hours expire?",
+    "bucket": "a_where_i_stand",
+    "facts": {
+      "has_hours_bank": true,
+      "bank_reset_date": "31 Jul 2026",
+      "bank_expiring": "4h 30m"
+    },
+    "expected_substrings": ["31 Jul 2026", "4h 30m"]
+  },
+  {
+    "id": "a-no-hours-bank-en",
+    "message": "how does my hours bank work?",
+    "bucket": "a_where_i_stand",
+    "facts": {
+      "banking_cycle_policy": "no hours bank — overtime is paid out in the same pay period it's worked"
+    },
+    "expected_substrings": ["overtime"]
+  },
+  {
+    "id": "a-pto-en",
+    "message": "how many days off do I have left?",
+    "bucket": "a_where_i_stand",
+    "facts": { "pto_days_available": 12 },
+    "expected_substrings": ["12"]
+  },
+  {
+    "id": "a-ot-period-en",
+    "message": "how much overtime did I do this period?",
+    "bucket": "a_where_i_stand",
+    "facts": { "overtime_this_period": "8h 15m" },
+    "expected_substrings": ["8h 15m"]
+  },
+  {
+    "id": "a-ot-trace-en",
+    "message": "why was my OT only 30%?",
+    "bucket": "a_where_i_stand",
+    "facts": {
+      "overtime_this_period": "8h 15m",
+      "trace_day": "Sat 5 Jul 2026",
+      "trace_extra": "2h 00m",
+      "trace_rate_applied": "+30%",
+      "trace_rule": "Saturday overtime band (from your CCT)",
+      "trace_weekday_rate": "+50%"
+    },
+    "expected_substrings": ["30%", "Saturday"]
+  },
+  {
+    "id": "a-pending-request-nested-en",
+    "message": "did my time off request go through?",
+    "bucket": "a_where_i_stand",
+    "facts": {
+      "pending_requests": [
+        {
+          "type": "Time off",
+          "detail": "Fri 25 Jul 2026",
+          "status": "Pending — awaiting Marcos"
+        }
+      ],
+      "manager_name": "Marcos"
+    },
+    "expected_substrings": ["25 Jul 2026", "Marcos"]
+  },
+  {
+    "id": "a-bank-balance-pt",
+    "message": "quanto eu tenho no banco de horas?",
+    "language": "pt",
+    "bucket": "a_where_i_stand",
+    "facts": {
+      "has_hours_bank": true,
+      "bank_balance": "14h 30m",
+      "bank_cycle": "mensal",
+      "bank_reset_date": "31 Jul 2026"
+    },
+    "expected_substrings": ["14h 30m"]
+  },
+  {
+    "id": "b-next-shift-en",
+    "message": "when is my next shift?",
+    "bucket": "b_whats_expected",
+    "facts": {
+      "next_shift_when": "tomorrow, Wed 15 Jul",
+      "next_shift_time": "08:00–17:00",
+      "next_shift_site": "Loja Centro"
+    },
+    "expected_substrings": ["08:00", "17:00"]
+  },
+  {
+    "id": "b-holiday-en",
+    "message": "am I working the next holiday?",
+    "bucket": "b_whats_expected",
+    "facts": {
+      "next_holiday_name": "Independência do Brasil",
+      "next_holiday_date": "Mon 7 Sep 2026",
+      "working_the_holiday": false
+    },
+    "expected_substrings": ["7 Sep 2026"]
+  },
+  {
+    "id": "b-week-hours-en",
+    "message": "how many hours am I scheduled this week?",
+    "bucket": "b_whats_expected",
+    "facts": { "week_hours": "44h across 6 days" },
+    "expected_substrings": ["44h"]
+  },
+  {
+    "id": "b-next-shift-pt",
+    "message": "quando é o meu próximo turno?",
+    "language": "pt",
+    "bucket": "b_whats_expected",
+    "facts": {
+      "next_shift_when": "amanhã, qua 15 Jul",
+      "next_shift_time": "08:00–17:00",
+      "next_shift_site": "Loja Centro"
+    },
+    "expected_substrings": ["08:00"]
+  },
+  {
+    "id": "d-ot-rule-en",
+    "message": "when do I start earning overtime?",
+    "bucket": "d_how_im_paid",
+    "facts": {
+      "policy_name": "Retail cashier — Loja Centro",
+      "jurisdiction": "brazil",
+      "ot_threshold": "8 hours a day",
+      "ot_rate_bands": "the first 2 extra hours at +50%, anything beyond that at +70%",
+      "saturday_ot_rate": "+30%"
+    },
+    "expected_substrings": ["8 hours", "50%"]
+  },
+  {
+    "id": "d-tolerance-en",
+    "message": "what happens if I clock in a few minutes late?",
+    "bucket": "d_how_im_paid",
+    "facts": { "tolerance": "10 minutes" },
+    "expected_substrings": ["10 minutes"]
+  },
+  {
+    "id": "d-dsr-en",
+    "message": "what is my weekly rest day?",
+    "bucket": "d_how_im_paid",
+    "facts": {
+      "dsr_rule": "one paid weekly rest day (DSR) — normally your Sunday"
+    },
+    "expected_substrings": ["Sunday"]
+  },
+  {
+    "id": "d-night-premium-pt",
+    "message": "como funciona o adicional noturno pra mim?",
+    "language": "pt",
+    "bucket": "d_how_im_paid",
+    "facts": {
+      "night_premium": "+20% (adicional noturno) entre 22:00 e 05:00, e cada hora noturna conta como 52m30s"
+    },
+    "expected_substrings": ["20%", "22:00"]
+  },
+  {
+    "id": "e-time-off-ask-en",
+    "message": "I need Friday off",
+    "bucket": "e_do_something",
+    "request_type": "time_off",
+    "facts": {
+      "stage": "awaiting_confirmation",
+      "request_type": "time_off",
+      "request_detail": "Fri 17 Jul",
+      "request_status": "Not sent yet — waiting for your go-ahead",
+      "pto_days_available": 12,
+      "manager_name": "Marcos"
+    },
+    "expected_substrings": ["17 Jul", "Marcos"]
+  },
+  {
+    "id": "e-shift-swap-ask-en",
+    "message": "can someone cover my Saturday shift?",
+    "bucket": "e_do_something",
+    "request_type": "shift_swap",
+    "facts": {
+      "stage": "awaiting_confirmation",
+      "request_type": "shift_swap",
+      "request_detail": "Sat 18 Jul, 08:00–17:00",
+      "request_status": "Not sent yet — waiting for your go-ahead",
+      "swap_candidates": ["Bruno", "Carla", "Diego"],
+      "manager_name": "Marcos"
+    },
+    "expected_substrings": ["18 Jul", "Bruno"]
+  },
+  {
+    "id": "e-time-off-ask-pt",
+    "message": "preciso de folga na sexta",
+    "language": "pt",
+    "bucket": "e_do_something",
+    "request_type": "time_off",
+    "facts": {
+      "stage": "awaiting_confirmation",
+      "request_type": "time_off",
+      "request_detail": "sex 17 Jul",
+      "request_status": "Ainda não enviado — esperando seu ok",
+      "pto_days_available": 12,
+      "manager_name": "Marcos"
+    },
+    "expected_substrings": ["17 Jul"]
+  },
+  {
+    "id": "e-submitted-confirm-en",
+    "message": "yes, send it",
+    "has_pending_flow": true,
+    "bucket": "e_do_something",
+    "flow_action": "confirm",
+    "facts": {
+      "stage": "submitted",
+      "request_type": "time_off",
+      "request_detail": "Fri 17 Jul",
+      "request_status": "Pending — sent to Marcos for approval",
+      "manager_name": "Marcos"
+    },
+    "expected_substrings": ["17 Jul", "Marcos"]
+  },
+  {
+    "id": "e-cancelled-pt",
+    "message": "não, deixa",
+    "has_pending_flow": true,
+    "language": "pt",
+    "bucket": "e_do_something",
+    "flow_action": "cancel",
+    "facts": { "stage": "cancelled", "request_type": "time_off", "request_status": "Não enviado — cancelado" },
+    "expected_substrings": []
+  },
+  {
+    "id": "unresolved-greeting-en",
+    "message": "hey there",
+    "bucket": "unresolved",
+    "facts": {},
+    "expected_substrings": []
+  },
+  {
+    "id": "unresolved-punch-correction-en",
+    "message": "I forgot to clock out yesterday, can you fix it?",
+    "bucket": "unresolved",
+    "facts": {},
+    "expected_substrings": []
+  }
+]
